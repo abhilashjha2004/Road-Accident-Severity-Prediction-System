@@ -208,21 +208,22 @@ async function evaluateModels() {
                     precision: updatedModelData.logistic.precision,
                     recall: updatedModelData.logistic.recall,
                     f1_score: updatedModelData.logistic.f1_score,
-                    confusion_matrix: data.results.logistic ? .confusion_matrix || []
+                    confusion_matrix: data.results ? .logistic ? .confusion_matrix || []
                 },
                 'knn': {
                     accuracy: updatedModelData.knn.accuracy,
                     precision: updatedModelData.knn.precision,
                     recall: updatedModelData.knn.recall,
                     f1_score: updatedModelData.knn.f1_score,
-                    confusion_matrix: data.results.knn ? .confusion_matrix || []
+                    confusion_matrix: data.results ? .knn ? .confusion_matrix || []
+
                 },
                 'decision_tree': {
                     accuracy: updatedModelData.decision_tree.accuracy,
                     precision: updatedModelData.decision_tree.precision,
                     recall: updatedModelData.decision_tree.recall,
                     f1_score: updatedModelData.decision_tree.f1_score,
-                    confusion_matrix: data.results.decision_tree ? .confusion_matrix || []
+                    confusion_matrix: data.results ? .decision_tree ? .confusion_matrix || []
                 }
             };
 
