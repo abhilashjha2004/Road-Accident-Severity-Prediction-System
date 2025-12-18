@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = "/api/predict";
 let chartInstances = { performance: null, feature: null };
 let predictionHistory = [];
 let evaluationResults = null;
