@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Accident Severity Prediction - Complete Dashboard</title>
+    <!-- IMPORTANT: Update the CSS link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+
+<body>
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle">
+        <button class="theme-btn" id="themeToggle">
+            <span id="themeIcon">🌙</span>
+            <span id="themeText">Dark Mode</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- REMOVED: Advanced Machine Learning Analytics Dashboard v4.0 -->
+        <div class="header">
+            <h1>🚗 Road Accident Severity Prediction System</h1>
+            <p>Advanced Machine Learning Analytics Dashboard</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <h3>📊 Total Records</h3>
+                <p id="totalRecords">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>🎯 Test Accuracy</h3>
+                <p id="bestAccuracy">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>🤖 Models Trained</h3>
+                <p id="modelsTrained">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>📈 Predictions Made</h3>
+                <p id="predictionCount">0</p>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span id="statusText" style="font-weight: 600; font-size: 1.1em;">Ready to train models</span>
+            </div>
+            <button class="btn" onclick="trainModels()" style="width: auto; margin: 0;">🔄 Train Models</button>
+        </div>
+
+        <div class="dashboard">
+            <!-- Smart Prediction Card -->
+            <div class="card">
+                <h2>🎯 Smart Prediction</h2>
+                <div class="input-group">
+                    <label>Select Model</label>
+                    <select id="modelSelect">
+                        <option value="logistic">Logistic Regression</option>
+                        <option value="knn">K-Nearest Neighbors</option>
+                        <option value="decision_tree">Decision Tree</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>⏰ Accident Hour (0-23)</label>
+                    <input type="number" id="accidentHour" min="0" max="23" value="14">
+                </div>
+                <div class="input-group">
+                    <label>🚙 Number of Vehicles</label>
+                    <input type="number" id="numVehicles" min="1" max="10" value="2">
+                </div>
+                <div class="input-group">
+                    <label>🌤️ Weather Condition</label>
+                    <select id="weather">
+                        <option value="0">Clear</option>
+                        <option value="1">Rainy</option>
+                        <option value="2">Foggy</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="makePrediction()">🔮 Predict Severity</button>
+                <div id="predictionResult"></div>
+            </div>
+
+            <!-- Model Performance Card -->
+            <div class="card">
+                <h2>📊 Model Performance</h2>
+                <button class="btn btn-success" onclick="evaluateModels()">📈 Evaluate All Models</button>
+
+                <!-- FIXED: Tabs now side by side -->
+                <div class="tab-container">
+                    <button class="tab active" onclick="switchTab('performance')">Performance Metrics</button>
+                    <button class="tab" onclick="switchTab('analysis')">Model Analysis</button>
+                </div>
+
+                <div id="performanceTab" class="tab-content active">
+                    <div class="metrics" id="performanceMetrics">
+                        <div class="metric-box">
+                            <h3>AVE ACCURACY</h3>
+                            <p id="avgAccuracy">-</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3>AVE F1 SCORE</h3>
+                            <p id="avgF1Score">-</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+
+                <div id="analysisTab" class="tab-content">
+                    <div class="model-performance-grid" id="modelPerformanceGrid">
+                        <!-- Model cards will be inserted here -->
+                        <div style="text-align: center; padding: 30px; color: var(--text-secondary);">
+                            Run evaluation to see model analysis
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Analysis Card -->
+            <div class="card">
+                <h2>🔍 Feature Analysis</h2>
+                <button class="btn btn-secondary" onclick="getFeatureImportance()">🔬 Analyze Features</button>
+                <div class="chart-container">
+                    <canvas id="featureChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Separate Model Comparison Card -->
+        <div class="model-comparison-card">
+            <h2>📋 Model Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>MODEL</th>
+                        <th>ACCURACY</th>
+                        <th>PRECISION</th>
+                        <th>RECALL</th>
+                        <th>F1 SCORE</th>
+                    </tr>
+                </thead>
+                <tbody id="comparisonBody">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                            Click "Evaluate All Models" to see comparison data
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- IMPORTANT: Update the JS script link -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
