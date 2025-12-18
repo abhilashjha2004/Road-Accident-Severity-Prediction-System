@@ -32,7 +32,7 @@ y_test = None
 processed_data = None
 
 # UPDATE THIS PATH TO YOUR DATASET LOCATION
-DATA_PATH = r"C:\Users\abhilash\Downloads\Road.csv"
+DATA_PATH = "Road.csv"
 TARGET_COL = "Accident_severity"
 
 def train_models():
