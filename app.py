@@ -1,6 +1,7 @@
 """
 Flask Backend for Road Accident Severity Prediction
-Updated for your folder structure
+Save as: app.py
+Run: python app.py
 """
 
 from flask import Flask, request, jsonify, render_template
@@ -31,8 +32,7 @@ X_test = None
 y_test = None
 processed_data = None
 
-# UPDATE THIS PATH TO YOUR DATASET LOCATION
-DATA_PATH = "Road.csv"
+DATA_PATH = r"C:\Users\abhilash\Downloads\Road.csv"
 TARGET_COL = "Accident_severity"
 
 def train_models():
@@ -408,7 +408,7 @@ if __name__ == '__main__':
     print("\n" + "=" * 70)
     print("STARTING ROAD ACCIDENT PREDICTION SERVER")
     print("=" * 70)
-    app.run()
+
     # Check if data file exists
     if not os.path.exists(DATA_PATH):
         print(f"\n⚠️  WARNING: Dataset not found at: {DATA_PATH}")
@@ -440,4 +440,3 @@ if __name__ == '__main__':
     print("\nPress CTRL+C to stop the server\n")
 
     app.run(debug=True, port=5000, use_reloader=False)
-
