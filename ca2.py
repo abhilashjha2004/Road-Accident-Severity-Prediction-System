@@ -178,3 +178,30 @@ evaluate_model("Logistic Regression", y_test, y_pred_lr)
 evaluate_model("KNN", y_test, y_pred_knn)
 evaluate_model("Decision Tree", y_test, y_pred_dt)
 
+#  ACTUAL vs PREDICTED GRAPH 
+
+def plot_actual_vs_pred_scatter(y_true, y_pred, model_name):
+    y_true = np.array(y_true)
+    y_pred = np.array(y_pred)
+
+    x = np.arange(len(y_true))
+
+    plt.figure(figsize=(12,4))
+    plt.scatter(x, y_true + np.random.uniform(-0.05, 0.05, len(x)),
+                label="Actual", alpha=0.5, s=10)
+    plt.scatter(x, y_pred + np.random.uniform(-0.05, 0.05, len(x)),
+                label="Predicted", alpha=0.5, s=10)
+
+    plt.title(f"Actual vs Predicted (Scatter) - {model_name}")
+    plt.xlabel("Test Sample Index")
+    plt.ylabel("Severity Class (0=Slight, 1=Serious, 2=Fatal)")
+    plt.yticks([0,1,2], ["Slight", "Serious", "Fatal"])
+    plt.legend()
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+
+plot_actual_vs_pred_scatter(y_test, y_pred_lr, "Logistic Regression")
+plot_actual_vs_pred_scatter(y_test, y_pred_knn, "KNN")
+plot_actual_vs_pred_scatter(y_test, y_pred_dt, "Decision Tree")
+
