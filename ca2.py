@@ -95,3 +95,30 @@ severity_mapping = {
 }
 df[TARGET] = df[TARGET].map(severity_mapping)
 
+
+# Heatmap
+
+numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+if TARGET in numeric_cols:
+    numeric_cols.remove(TARGET)
+
+if numeric_cols:
+    corr = df[numeric_cols].corr().abs()  
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(corr,
+                annot=True,
+                fmt=".2f",
+                cmap='YlOrRd', 
+                linewidths=0.5,
+                square=True,
+                cbar_kws={"shrink": .8})
+    plt.title("Interactive Heatmap (Absolute Correlations Only)", fontsize=14)
+    plt.tight_layout()
+    plt.show()
+
+if TARGET in df.columns and np.issubdtype(df[TARGET].dtype, np.number):
+    corr_with_target = df[numeric_cols + [TARGET]].corr()[TARGET].abs().sort_values(ascending=False)
+    print("\nTop correlations with target (abs):")
+    print(corr_with_target.head(6))
+
