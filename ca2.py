@@ -136,9 +136,25 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
+
 # SCALING
 
 scaler = StandardScaler()
 X_train_s = scaler.fit_transform(X_train)
 X_test_s = scaler.transform(X_test)
+
+
+# TRAIN MODELS
+
+lr = LogisticRegression(max_iter=2000)
+lr.fit(X_train_s, y_train)
+y_pred_lr = lr.predict(X_test_s)
+
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train_s, y_train)
+y_pred_knn = knn.predict(X_test_s)
+
+dt = DecisionTreeClassifier(max_depth=8, random_state=42)
+dt.fit(X_train, y_train)
+y_pred_dt = dt.predict(X_test)
 
