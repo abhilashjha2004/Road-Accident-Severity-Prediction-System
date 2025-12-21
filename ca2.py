@@ -226,3 +226,39 @@ try:
 except Exception as e:
     print("Could not compute feature importances:", e)
 
+# PERFORMANCE COMPARISON 
+
+performance_df = pd.DataFrame({
+    "Model": ["Logistic Regression", "KNN", "Decision Tree"],
+    "Accuracy": [
+        accuracy_score(y_test, y_pred_lr),
+        accuracy_score(y_test, y_pred_knn),
+        accuracy_score(y_test, y_pred_dt)
+    ],
+    "Precision": [
+        precision_score(y_test, y_pred_lr, average='weighted', zero_division=0),
+        precision_score(y_test, y_pred_knn, average='weighted', zero_division=0),
+        precision_score(y_test, y_pred_dt, average='weighted', zero_division=0)
+    ],
+    "Recall": [
+        recall_score(y_test, y_pred_lr, average='weighted', zero_division=0),
+        recall_score(y_test, y_pred_knn, average='weighted', zero_division=0),
+        recall_score(y_test, y_pred_dt, average='weighted', zero_division=0)
+    ],
+    "F1 Score": [
+        f1_score(y_test, y_pred_lr, average='weighted', zero_division=0),
+        f1_score(y_test, y_pred_knn, average='weighted', zero_division=0),
+        f1_score(y_test, y_pred_dt, average='weighted', zero_division=0)
+    ]
+})
+
+print("\n MODEL PERFORMANCE COMPARISON ")
+print(performance_df.round(4))
+
+best_model = performance_df.loc[performance_df["F1 Score"].idxmax()]
+
+print("\nBEST PERFORMING MODEL:")
+print(f"Model Name : {best_model['Model']}")
+print(f"Accuracy   : {best_model['Accuracy']:.4f}")
+print(f"F1 Score   : {best_model['F1 Score']:.4f}")
+
