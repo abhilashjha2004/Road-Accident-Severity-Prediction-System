@@ -21,6 +21,7 @@ TARGET = "Accident_severity"
 print("Dataset Shape:", df.shape)
 print(df[TARGET].value_counts())
 
+
 # EDA — Simple Distribution + Boxplots
 
 numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
@@ -76,6 +77,7 @@ for col in plot_cols:
     plt.title(f"Boxplot of {col}")
     plt.show()
 
+
 # ENCODING
 
 cat_cols = df.select_dtypes(include=['object']).columns.tolist()
@@ -122,6 +124,7 @@ if TARGET in df.columns and np.issubdtype(df[TARGET].dtype, np.number):
     print("\nTop correlations with target (abs):")
     print(corr_with_target.head(6))
 
+
 # TRAIN–TEST SPLIT
 
 if "Time" in df.columns:
@@ -132,10 +135,7 @@ y = df[TARGET]
 
 X = X.fillna(X.median())
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42, stratify=y
-)
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # SCALING
 
@@ -143,8 +143,7 @@ scaler = StandardScaler()
 X_train_s = scaler.fit_transform(X_train)
 X_test_s = scaler.transform(X_test)
 
-
-# TRAIN MODELS
+#  MODELS TRAINING
 
 lr = LogisticRegression(max_iter=2000)
 lr.fit(X_train_s, y_train)
@@ -158,10 +157,11 @@ dt = DecisionTreeClassifier(max_depth=8, random_state=42)
 dt.fit(X_train, y_train)
 y_pred_dt = dt.predict(X_test)
 
+
 # Performance 
 
 def evaluate_model(name, y_true, y_pred):
-    print(f"\n===== {name} =====")
+    print(f"\n {name} ")
     print("Accuracy:", accuracy_score(y_true, y_pred))
     print("Precision:", precision_score(y_true, y_pred, average='weighted', zero_division=0))
     print("Recall:", recall_score(y_true, y_pred, average='weighted', zero_division=0))
@@ -177,6 +177,7 @@ def evaluate_model(name, y_true, y_pred):
 evaluate_model("Logistic Regression", y_test, y_pred_lr)
 evaluate_model("KNN", y_test, y_pred_knn)
 evaluate_model("Decision Tree", y_test, y_pred_dt)
+
 
 #  ACTUAL vs PREDICTED GRAPH 
 
@@ -205,6 +206,7 @@ plot_actual_vs_pred_scatter(y_test, y_pred_lr, "Logistic Regression")
 plot_actual_vs_pred_scatter(y_test, y_pred_knn, "KNN")
 plot_actual_vs_pred_scatter(y_test, y_pred_dt, "Decision Tree")
 
+
 #  DECISION TREE FEATURE IMPORTANCE
 
 dt = DecisionTreeClassifier(random_state=42)
@@ -225,6 +227,7 @@ try:
     plt.show()
 except Exception as e:
     print("Could not compute feature importances:", e)
+
 
 # PERFORMANCE COMPARISON 
 
@@ -261,6 +264,7 @@ print("\nBEST PERFORMING MODEL:")
 print(f"Model Name : {best_model['Model']}")
 print(f"Accuracy   : {best_model['Accuracy']:.4f}")
 print(f"F1 Score   : {best_model['F1 Score']:.4f}")
+
 
 #  ACCURACY COMPARISON GRAPH
 
