@@ -262,3 +262,26 @@ print(f"Model Name : {best_model['Model']}")
 print(f"Accuracy   : {best_model['Accuracy']:.4f}")
 print(f"F1 Score   : {best_model['F1 Score']:.4f}")
 
+#  ACCURACY COMPARISON GRAPH
+
+results = {
+    "Model": ["Logistic Regression", "KNN", "Decision Tree"],
+    "Accuracy": [
+        accuracy_score(y_test, y_pred_lr),
+        accuracy_score(y_test, y_pred_knn),
+        accuracy_score(y_test, y_pred_dt)
+    ]
+}
+
+perf_df = pd.DataFrame(results)
+
+plt.figure(figsize=(8, 5))
+sns.barplot(data=perf_df, x="Model", y="Accuracy", hue="Model", dodge=False)
+plt.title("Model Accuracy Comparison")
+plt.ylabel("Accuracy")
+plt.ylim(0, 1)
+plt.show()
+
+
+print("\nProject Completed Successfully!")
+
