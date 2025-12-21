@@ -205,3 +205,24 @@ plot_actual_vs_pred_scatter(y_test, y_pred_lr, "Logistic Regression")
 plot_actual_vs_pred_scatter(y_test, y_pred_knn, "KNN")
 plot_actual_vs_pred_scatter(y_test, y_pred_dt, "Decision Tree")
 
+#  DECISION TREE FEATURE IMPORTANCE
+
+dt = DecisionTreeClassifier(random_state=42)
+best_dt = dt.fit(X_train, y_train)
+try:
+    if isinstance(X_train, pd.DataFrame):
+        feat_names = X_train.columns
+    else:
+        feat_names = list(range(X_train.shape[1]))
+    fi = pd.Series(best_dt.feature_importances_, index=feat_names).sort_values(ascending=False)
+    print(fi.head(20))
+    plt.figure(figsize=(10,6))
+    sns.barplot(x=fi.values[:20], y=fi.index[:20])
+    plt.title("Decision Tree - Top 20 Features")
+    plt.xlabel("Importance")
+    plt.ylabel("Feature")
+    plt.tight_layout()
+    plt.show()
+except Exception as e:
+    print("Could not compute feature importances:", e)
+
