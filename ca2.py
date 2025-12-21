@@ -158,3 +158,23 @@ dt = DecisionTreeClassifier(max_depth=8, random_state=42)
 dt.fit(X_train, y_train)
 y_pred_dt = dt.predict(X_test)
 
+# Performance 
+
+def evaluate_model(name, y_true, y_pred):
+    print(f"\n===== {name} =====")
+    print("Accuracy:", accuracy_score(y_true, y_pred))
+    print("Precision:", precision_score(y_true, y_pred, average='weighted', zero_division=0))
+    print("Recall:", recall_score(y_true, y_pred, average='weighted', zero_division=0))
+    print("F1 Score:", f1_score(y_true, y_pred, average='weighted', zero_division=0))
+    print("confusion matrix: ",confusion_matrix(y_test,y_pred))
+    print("\n", classification_report(y_true, y_pred, zero_division=0))
+
+    cm = confusion_matrix(y_true, y_pred)
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title(f"Confusion Matrix - {name}")
+    plt.show()
+
+evaluate_model("Logistic Regression", y_test, y_pred_lr)
+evaluate_model("KNN", y_test, y_pred_knn)
+evaluate_model("Decision Tree", y_test, y_pred_dt)
+
