@@ -76,3 +76,22 @@ for col in plot_cols:
     plt.title(f"Boxplot of {col}")
     plt.show()
 
+# ENCODING
+
+cat_cols = df.select_dtypes(include=['object']).columns.tolist()
+cat_cols = [c for c in cat_cols if c != TARGET]
+
+small_cat = [c for c in cat_cols if df[c].nunique() <= 12]
+df = pd.get_dummies(df, columns=small_cat, drop_first=True)
+
+for c in cat_cols:
+    if c not in small_cat:
+        df[c] = LabelEncoder().fit_transform(df[c].astype(str))
+
+severity_mapping = {
+    "Slight Injury": 0,
+    "Serious Injury": 1,
+    "Fatal injury": 2
+}
+df[TARGET] = df[TARGET].map(severity_mapping)
+
