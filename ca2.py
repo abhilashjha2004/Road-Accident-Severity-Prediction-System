@@ -122,3 +122,17 @@ if TARGET in df.columns and np.issubdtype(df[TARGET].dtype, np.number):
     print("\nTop correlations with target (abs):")
     print(corr_with_target.head(6))
 
+# TRAIN–TEST SPLIT
+
+if "Time" in df.columns:
+    df = df.drop(columns=["Time"]) 
+
+X = df.drop(columns=[TARGET])
+y = df[TARGET]
+
+X = X.fillna(X.median())
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
