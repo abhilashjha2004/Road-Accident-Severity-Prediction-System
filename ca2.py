@@ -14,15 +14,52 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 sns.set_style("whitegrid")
 
 df = pd.read_csv("C:/Users/abhilash/Downloads/Road.csv")
-df.columns = [c.strip() for c in df.columns]
+
 
 TARGET = "Accident_severity"
-
-print("Dataset Shape:", df.shape)
 print(df[TARGET].value_counts())
 
+# EDA 
 
-# EDA — Simple Distribution + Boxplots
+print("Dataset Shape:", df.shape)
+print()
+
+df.columns = [c.strip() for c in df.columns]
+
+print(df.info())
+print()
+
+print(df.describe())
+print()
+
+missing_data = df.isnull().sum()
+print(missing_data)
+print()
+
+print(
+    df[[
+        "Casualty_class",
+        "Sex_of_casualty",
+        "Age_band_of_casualty",
+        "Casualty_severity",
+        "Work_of_casuality",
+        "Fitness_of_casuality"
+    ]].dropna()
+)
+print(df.shape)
+print()
+
+age_band_counts = df['Age_band_of_driver'].value_counts()
+color = ['lightblue', 'blue', 'green', 'red', 'yellow']
+
+plt.figure(figsize=(12, 6))
+sns.barplot(x=age_band_counts.index, y=age_band_counts.values, palette="husl")
+plt.xlabel('Age Band of Drivers')
+plt.ylabel('Number of Accidents')
+plt.xticks(rotation=45)
+plt.show()
+
+#  Distribution + Boxplots
 
 numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
 
