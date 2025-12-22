@@ -36,16 +36,15 @@ missing_data = df.isnull().sum()
 print(missing_data)
 print()
 
-print(
-    df[[
+print(df[[
         "Casualty_class",
         "Sex_of_casualty",
         "Age_band_of_casualty",
         "Casualty_severity",
         "Work_of_casuality",
         "Fitness_of_casuality"
-    ]].dropna()
-)
+    ]].dropna())
+
 print(df.shape)
 print()
 
@@ -152,7 +151,7 @@ if numeric_cols:
                 linewidths=0.5,
                 square=True,
                 cbar_kws={"shrink": .8})
-    plt.title("Interactive Heatmap (Absolute Correlations Only)", fontsize=14)
+    plt.title(" Heatmap ", fontsize=14)
     plt.tight_layout()
     plt.show()
 
