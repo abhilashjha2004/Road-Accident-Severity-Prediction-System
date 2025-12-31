@@ -44,4 +44,3 @@ The project also follows **DevOps practices** using **Git and GitHub** for versi
 
 ---
 
-## 📂 Project Structure
